@@ -1,5 +1,5 @@
 client : main.o	http.o	filedata.o operator.o
-	gcc main.o http.o filedata.o operator.o -o client -lcrypto -lssl
+	gcc main.o http.o filedata.o operator.o -o client -lcrypto -lssl -lsqlite3
 main.o : main.c operator.h 
 	gcc -Wall -g -c main.c
 http.o:	 http.c

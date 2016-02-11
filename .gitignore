@@ -1,5 +1,6 @@
 *~
 *.o
+*.db
 *.html
 client
 OneDrive REST API

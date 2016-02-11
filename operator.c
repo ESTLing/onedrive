@@ -294,7 +294,7 @@ int deletefile(char *path)
     return 0;
 }
 
-int createfolder(char *name)
+int createfolder(const char *name)
 {
     GetConnect();
 

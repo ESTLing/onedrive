@@ -1,3 +1,5 @@
+#include "operator.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,8 +12,10 @@
 #include <arpa/inet.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
+#include <sqlite3.h>
 
-#include "operator.h"
+#define true 1
+#define false 0
 
 char api_code[NAMESIZE];
 char api_client_id[NAMESIZE] = "000000004C12EED0";
@@ -35,6 +39,26 @@ int state;
 
 struct FileData* FileMes;
 
+int exittable = false;
+int callback1(void* data, int argc, char** argv,char** colnum) {
+     if (strcmp(argv[0], "1") == 0)
+          exittable = true;
+     return 0;
+}
+
+int callback2(void* data, int argc, char** argv,char** colnum) {
+     memset(api_access_token, 0, NAMESIZE);
+     strcat(api_access_token, argv[0]);
+     memset(api_refresh_token, 0, NAMESIZE);
+     strcat(api_refresh_token, argv[1]);
+     return 0;
+}
+
+int CreateTable(sqlite3*, char**);
+int SaveToken(sqlite3*, char**);
+int GetTokenFromDatabase(sqlite3*, char**);
+//int RefreshToken();
+
 int help();
 int GetFileData();
 int GetFileDataFromRespones();
@@ -46,16 +70,40 @@ int main(int argc,char* argv[])
     char *tmp1, *tmp2;
     int i;
 
-    printf("Plesae enter this webpage and get your code.\n");
-    printf("https://login.live.com/oauth20_authorize.srf?client_id=000000004C12EED0"
-           "&scope=wl.signin%%20wl.skydrive%%20wl.skydrive_update%%20wl.basic%%20wl.offline_access%%20wl.photos"
-           "&response_type=code&display=touch"
-           "&redirect_uri=https%%3A%%2F%%2Flogin.live.com%%2Foauth20_desktop.srf");
-    printf("\n\ncode:");
-    scanf("%s",api_code);
-    fgets(input, NAMESIZE, stdin);
+    sqlite3 *db;
+    char* ErrMsg;
+    int rc;
+    char* sql;
 
-    if(GetToken(api_code) == -1) exit(0);
+    rc = sqlite3_open("onedrive.db", &db);
+    if (rc) {
+         printf("Can't open database: %s\n", sqlite3_errmsg(db));
+         exit(0);
+    }
+    sql = "select count(*) from sqlite_master where type='table' and name='token'";
+    rc = sqlite3_exec(db, sql, callback1, 0, &ErrMsg);
+    if (rc != SQLITE_OK) {
+         printf("Error: %s\n", ErrMsg);
+         sqlite3_free(ErrMsg);
+    }
+    if (!exittable) {
+         printf("Plesae enter this webpage and get your code.\n");
+         printf("https://login.live.com/oauth20_authorize.srf?client_id=000000004C12EED0"
+                "&scope=wl.signin%%20wl.skydrive%%20wl.skydrive_update%%20wl.basic%%20wl.offline_access%%20wl.photos"
+                "&response_type=code&display=touch"
+                "&redirect_uri=https%%3A%%2F%%2Flogin.live.com%%2Foauth20_desktop.srf");
+         printf("\n\ncode:");
+         scanf("%s",api_code);
+         fgets(input, NAMESIZE, stdin);
+         if(GetToken(api_code) == -1) exit(0);
+         CreateTable(db, &ErrMsg);
+    } else {
+         GetTokenFromDatabase(db, &ErrMsg);
+//         RefreshToken(db, &ErrMsg);
+    }
+    SaveToken(db, &ErrMsg);
+    sqlite3_close(db);
+
     if(GetFileData() == -1) exit(0);
     if(GetQuotaData() == -1) exit(0);
     while(1)
@@ -106,7 +154,7 @@ int main(int argc,char* argv[])
             continue;
         }
         if(strcmp(args[0], "create") == 0) {
-            if(createfolder(args[1]) ==-1)
+             if(createfolder(args[1]) ==-1)
                 exit(0);
             continue;
         }
@@ -249,4 +297,54 @@ int help()
     printf("\t help:    show this message.\n");
     printf("\t ls foldername:  show this folder.\n");
     return 0;
+}
+
+int CreateTable(sqlite3* db, char** ErrMsg) {
+     char* sql = "create table token("     \
+            "access_token char[100] not null,"\
+            "refresh_token char[100] not null)";
+     int rc = sqlite3_exec(db, sql, NULL, NULL, ErrMsg);
+     if (rc != SQLITE_OK) {
+          printf("Error: %s\n", *ErrMsg);
+          sqlite3_free(ErrMsg);
+          return -1;
+     }
+     return 0;
+}
+
+int SaveToken(sqlite3* db, char** ErrMsg) {
+     int rc;
+     char sql[NAMESIZE*2];
+     memset(sql, 0, 100);
+     strcat(sql, "delete from token");
+     rc = sqlite3_exec(db, sql, NULL, NULL, ErrMsg);
+     if (rc != SQLITE_OK) {
+          printf("Error: %s\n", *ErrMsg);
+          sqlite3_free(ErrMsg);
+          return -1;
+     }
+     memset(sql, 0, NAMESIZE*2);
+     strcat(sql, "insert into token values('");
+     strcat(sql, api_access_token);
+     strcat(sql, "','");
+     strcat(sql, api_refresh_token);
+     strcat(sql, "')");
+     rc = sqlite3_exec(db, sql, NULL, NULL, ErrMsg);
+     if (rc != SQLITE_OK) {
+          printf("Error: %s\n", *ErrMsg);
+          sqlite3_free(ErrMsg);
+          return -1;
+     }
+     return 0;
+}
+
+int GetTokenFromDatabase(sqlite3* db, char** ErrMsg) {
+     char* sql = "select * from token";
+     int rc = sqlite3_exec(db, sql, callback2, NULL, ErrMsg);
+     if (rc != SQLITE_OK) {
+          printf("Error: %s\n", *ErrMsg);
+          sqlite3_free(ErrMsg);
+          return -1;
+     }
+     return 0;
 }
