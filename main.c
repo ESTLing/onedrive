@@ -57,7 +57,6 @@ int callback2(void* data, int argc, char** argv,char** colnum) {
 int CreateTable(sqlite3*, char**);
 int SaveToken(sqlite3*, char**);
 int GetTokenFromDatabase(sqlite3*, char**);
-//int RefreshToken();
 
 int help();
 int GetFileData();
@@ -99,7 +98,7 @@ int main(int argc,char* argv[])
          CreateTable(db, &ErrMsg);
     } else {
          GetTokenFromDatabase(db, &ErrMsg);
-//         RefreshToken(db, &ErrMsg);
+         RefreshToken();
     }
     SaveToken(db, &ErrMsg);
     sqlite3_close(db);
@@ -287,15 +286,15 @@ int help()
 {
     printf("\nWelcome to onedrive client!\n");
     printf("usage:\n");
-    printf("\t exit:exit.\n");
-    printf("\t upload filename1 filename2: upload filename1 to onedrive and rename filename2.\n");
-    printf("\t download filename:   download this file to your computer.\n");
-    printf("\t move filename pathname:  move filename to pathname.\n");
-    printf("\t copy filename pathname:  copy filename to pathname.\n");
-    printf("\t delete filename(foldername): delete this file or folder.\n");
-    printf("\t create foldername:   create a folder.\n");
-    printf("\t help:    show this message.\n");
-    printf("\t ls foldername:  show this folder.\n");
+    printf("  exit:\t\t\texit.\n");
+    printf("  upload file1 file2:\tupload file1 to onedrive and rename as file2.\n");
+    printf("  download file:\tdownload this file to your computer.\n");
+    printf("  move file folder:\tmove file to folder.\n");
+    printf("  copy file folder:\tcopy file to folder.\n");
+    printf("  delete file(folder):\tdelete this file or folder.\n");
+    printf("  create folder:\tcreate a folder.\n");
+    printf("  help:\t\t\tshow this message.\n");
+    printf("  ls folder:\t\tshow this folder.\n");
     return 0;
 }
 

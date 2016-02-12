@@ -7,6 +7,7 @@ char* GetFrom(char* respones,const char *data);
 
 int getCode();
 int GetToken(char *code);
+int RefreshToken();
 int GetTokenFromResponse();
 
 int GetConnect();

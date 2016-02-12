@@ -38,6 +38,8 @@ extern struct FileData* FileMes;
 extern int GetFileData();
 extern int GetFileDataFromRespones();
 
+long long readable(long long int num,char* c);
+
 int GetQuotaData()
 {
     GetConnect();
@@ -75,15 +77,35 @@ int GetQuotaData()
 
 int GetQuotaDataFromRespones()
 {
+// example:    {"quota": 32212254720,\r"available": 31572243278}
     char *tmp1 = service_respones;
     char *tmp2;
+    char c;
+    long long num;
     for(; *tmp1 != '{'; tmp1++);
+    for(; *tmp1 != '"'; tmp1++);
     tmp1++;
-    for(tmp2 = tmp1 + 1; *tmp2 != '\r'; tmp2++);
-    *tmp2 = '\n';
+    for(tmp2 = tmp1 + 1; *tmp2 != '"'; tmp2++);
+    *tmp2 = '\0';
+    for(; *tmp2 != ','; tmp2++);
+    *tmp2 = '\0';
+    for(; *tmp2 != '"'; tmp2++);
+    for(tmp2 += 1; *tmp2 != '"'; tmp2++);
+    *tmp2 = '\0';
     for(; *tmp2 != '}'; tmp2++);
     *tmp2 = '\0';
-    printf("%s\n",tmp1);
+    printf("%s:\t\t",tmp1);
+    for(; *tmp1 != ':'; tmp1++);
+    tmp1 += 2;
+    num = readable(atoll(tmp1), &c);
+    printf("%lld%c\n", num, c);
+    for(; *tmp1 != '"'; tmp1++);
+    tmp1++;
+    printf("%s:\t", tmp1);
+    for(; *tmp1 != ':'; tmp1++);
+    tmp1 += 2;
+    num = readable(atoll(tmp1), &c);
+    printf("%lld%c\n", num, c);
 
     return 0;
 }
@@ -451,3 +473,28 @@ int GetFolderInfoFromRespones(struct FileData* Folder)
     return 0;
 }
 
+
+long long readable(long long int num,char* c) {
+     int i = 0;
+     while(num > 1024) {
+          num /= 1024;
+          ++i;
+     }
+     switch(i){
+     case 0:
+          *c = 'B';
+          break;
+     case 1:
+          *c = 'K';
+          break;
+     case 2:
+          *c = 'M';
+          break;
+     case 3:
+          *c = 'G';
+          break;
+     default:
+          break;
+     }
+     return num;
+}
