@@ -15,6 +15,12 @@ make
 make clean
 ```
 
+Now we have database support, so [sqlite3](http://www.sqlite.org/) is required.
+If you are in fedora, you can install it like this.
+```bash
+sudo dnf install sqlite sqlite-devel
+```
+
 ## Usage
 
 The first time you run it, it will give you a link and you should
