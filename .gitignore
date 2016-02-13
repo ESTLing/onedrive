@@ -1,6 +1,17 @@
 *~
 *.o
+*.log
+*.cache
+*.status
 *.db
 *.html
 client
 OneDrive REST API
+
+stamp-h1
+makefile.am
+onedrive
+install-sh
+
+*.deps/
+*.dirstamp
