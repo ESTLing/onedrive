@@ -18,4 +18,7 @@ int print(struct FileData*);
 struct FileData* ls(char* foldername);
 char* find(char *fullpath);
 int FreeFileData();
+
+long long readable(long long int num,char* c);
+
 #endif // FILEDATA_H

@@ -38,8 +38,6 @@ extern struct FileData* FileMes;
 extern int GetFileData();
 extern int GetFileDataFromRespones();
 
-long long readable(long long int num,char* c);
-
 int GetQuotaData()
 {
     GetConnect();
@@ -473,28 +471,3 @@ int GetFolderInfoFromRespones(struct FileData* Folder)
     return 0;
 }
 
-
-long long readable(long long int num,char* c) {
-     int i = 0;
-     while(num > 1024) {
-          num /= 1024;
-          ++i;
-     }
-     switch(i){
-     case 0:
-          *c = 'B';
-          break;
-     case 1:
-          *c = 'K';
-          break;
-     case 2:
-          *c = 'M';
-          break;
-     case 3:
-          *c = 'G';
-          break;
-     default:
-          break;
-     }
-     return num;
-}
