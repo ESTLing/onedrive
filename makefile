@@ -188,15 +188,15 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = aclocal-1.15
+ACLOCAL = ${SHELL} /home/estling/c-c++/onedrive/onedrive/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = autoconf
-AUTOHEADER = autoheader
-AUTOMAKE = automake-1.15
+AUTOCONF = ${SHELL} /home/estling/c-c++/onedrive/onedrive/missing autoconf
+AUTOHEADER = ${SHELL} /home/estling/c-c++/onedrive/onedrive/missing autoheader
+AUTOMAKE = ${SHELL} /home/estling/c-c++/onedrive/onedrive/missing automake-1.15
 AWK = gawk
 CC = gcc
-CCDEPMODE = depmode=none
+CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
@@ -218,7 +218,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = -lsqlite3 
 LTLIBOBJS = 
-MAKEINFO = makeinfo
+MAKEINFO = ${SHELL} /home/estling/c-c++/onedrive/onedrive/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
 PACKAGE = onedrive
@@ -406,76 +406,76 @@ include src/$(DEPDIR)/onedrive-main.Po
 include src/$(DEPDIR)/onedrive-operator.Po
 
 .c.o:
-#	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
-#	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
-#	$(am__mv) $$depbase.Tpo $$depbase.Po
-	$(AM_V_CC)source='$<' object='$@' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(COMPILE) -c -o $@ $<
+	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+	$(am__mv) $$depbase.Tpo $$depbase.Po
+#	$(AM_V_CC)source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(COMPILE) -c -o $@ $<
 
 .c.obj:
-#	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
-#	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
-#	$(am__mv) $$depbase.Tpo $$depbase.Po
-	$(AM_V_CC)source='$<' object='$@' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+	$(am__mv) $$depbase.Tpo $$depbase.Po
+#	$(AM_V_CC)source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 src/onedrive-main.o: src/main.c
-#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-main.o -MD -MP -MF src/$(DEPDIR)/onedrive-main.Tpo -c -o src/onedrive-main.o `test -f 'src/main.c' || echo '$(srcdir)/'`src/main.c
-#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-main.Tpo src/$(DEPDIR)/onedrive-main.Po
-	$(AM_V_CC)source='src/main.c' object='src/onedrive-main.o' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-main.o `test -f 'src/main.c' || echo '$(srcdir)/'`src/main.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-main.o -MD -MP -MF src/$(DEPDIR)/onedrive-main.Tpo -c -o src/onedrive-main.o `test -f 'src/main.c' || echo '$(srcdir)/'`src/main.c
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-main.Tpo src/$(DEPDIR)/onedrive-main.Po
+#	$(AM_V_CC)source='src/main.c' object='src/onedrive-main.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-main.o `test -f 'src/main.c' || echo '$(srcdir)/'`src/main.c
 
 src/onedrive-main.obj: src/main.c
-#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-main.obj -MD -MP -MF src/$(DEPDIR)/onedrive-main.Tpo -c -o src/onedrive-main.obj `if test -f 'src/main.c'; then $(CYGPATH_W) 'src/main.c'; else $(CYGPATH_W) '$(srcdir)/src/main.c'; fi`
-#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-main.Tpo src/$(DEPDIR)/onedrive-main.Po
-	$(AM_V_CC)source='src/main.c' object='src/onedrive-main.obj' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-main.obj `if test -f 'src/main.c'; then $(CYGPATH_W) 'src/main.c'; else $(CYGPATH_W) '$(srcdir)/src/main.c'; fi`
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-main.obj -MD -MP -MF src/$(DEPDIR)/onedrive-main.Tpo -c -o src/onedrive-main.obj `if test -f 'src/main.c'; then $(CYGPATH_W) 'src/main.c'; else $(CYGPATH_W) '$(srcdir)/src/main.c'; fi`
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-main.Tpo src/$(DEPDIR)/onedrive-main.Po
+#	$(AM_V_CC)source='src/main.c' object='src/onedrive-main.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-main.obj `if test -f 'src/main.c'; then $(CYGPATH_W) 'src/main.c'; else $(CYGPATH_W) '$(srcdir)/src/main.c'; fi`
 
 src/onedrive-filedata.o: src/filedata.c
-#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-filedata.o -MD -MP -MF src/$(DEPDIR)/onedrive-filedata.Tpo -c -o src/onedrive-filedata.o `test -f 'src/filedata.c' || echo '$(srcdir)/'`src/filedata.c
-#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-filedata.Tpo src/$(DEPDIR)/onedrive-filedata.Po
-	$(AM_V_CC)source='src/filedata.c' object='src/onedrive-filedata.o' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-filedata.o `test -f 'src/filedata.c' || echo '$(srcdir)/'`src/filedata.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-filedata.o -MD -MP -MF src/$(DEPDIR)/onedrive-filedata.Tpo -c -o src/onedrive-filedata.o `test -f 'src/filedata.c' || echo '$(srcdir)/'`src/filedata.c
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-filedata.Tpo src/$(DEPDIR)/onedrive-filedata.Po
+#	$(AM_V_CC)source='src/filedata.c' object='src/onedrive-filedata.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-filedata.o `test -f 'src/filedata.c' || echo '$(srcdir)/'`src/filedata.c
 
 src/onedrive-filedata.obj: src/filedata.c
-#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-filedata.obj -MD -MP -MF src/$(DEPDIR)/onedrive-filedata.Tpo -c -o src/onedrive-filedata.obj `if test -f 'src/filedata.c'; then $(CYGPATH_W) 'src/filedata.c'; else $(CYGPATH_W) '$(srcdir)/src/filedata.c'; fi`
-#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-filedata.Tpo src/$(DEPDIR)/onedrive-filedata.Po
-	$(AM_V_CC)source='src/filedata.c' object='src/onedrive-filedata.obj' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-filedata.obj `if test -f 'src/filedata.c'; then $(CYGPATH_W) 'src/filedata.c'; else $(CYGPATH_W) '$(srcdir)/src/filedata.c'; fi`
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-filedata.obj -MD -MP -MF src/$(DEPDIR)/onedrive-filedata.Tpo -c -o src/onedrive-filedata.obj `if test -f 'src/filedata.c'; then $(CYGPATH_W) 'src/filedata.c'; else $(CYGPATH_W) '$(srcdir)/src/filedata.c'; fi`
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-filedata.Tpo src/$(DEPDIR)/onedrive-filedata.Po
+#	$(AM_V_CC)source='src/filedata.c' object='src/onedrive-filedata.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-filedata.obj `if test -f 'src/filedata.c'; then $(CYGPATH_W) 'src/filedata.c'; else $(CYGPATH_W) '$(srcdir)/src/filedata.c'; fi`
 
 src/onedrive-http.o: src/http.c
-#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-http.o -MD -MP -MF src/$(DEPDIR)/onedrive-http.Tpo -c -o src/onedrive-http.o `test -f 'src/http.c' || echo '$(srcdir)/'`src/http.c
-#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-http.Tpo src/$(DEPDIR)/onedrive-http.Po
-	$(AM_V_CC)source='src/http.c' object='src/onedrive-http.o' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-http.o `test -f 'src/http.c' || echo '$(srcdir)/'`src/http.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-http.o -MD -MP -MF src/$(DEPDIR)/onedrive-http.Tpo -c -o src/onedrive-http.o `test -f 'src/http.c' || echo '$(srcdir)/'`src/http.c
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-http.Tpo src/$(DEPDIR)/onedrive-http.Po
+#	$(AM_V_CC)source='src/http.c' object='src/onedrive-http.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-http.o `test -f 'src/http.c' || echo '$(srcdir)/'`src/http.c
 
 src/onedrive-http.obj: src/http.c
-#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-http.obj -MD -MP -MF src/$(DEPDIR)/onedrive-http.Tpo -c -o src/onedrive-http.obj `if test -f 'src/http.c'; then $(CYGPATH_W) 'src/http.c'; else $(CYGPATH_W) '$(srcdir)/src/http.c'; fi`
-#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-http.Tpo src/$(DEPDIR)/onedrive-http.Po
-	$(AM_V_CC)source='src/http.c' object='src/onedrive-http.obj' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-http.obj `if test -f 'src/http.c'; then $(CYGPATH_W) 'src/http.c'; else $(CYGPATH_W) '$(srcdir)/src/http.c'; fi`
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-http.obj -MD -MP -MF src/$(DEPDIR)/onedrive-http.Tpo -c -o src/onedrive-http.obj `if test -f 'src/http.c'; then $(CYGPATH_W) 'src/http.c'; else $(CYGPATH_W) '$(srcdir)/src/http.c'; fi`
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-http.Tpo src/$(DEPDIR)/onedrive-http.Po
+#	$(AM_V_CC)source='src/http.c' object='src/onedrive-http.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-http.obj `if test -f 'src/http.c'; then $(CYGPATH_W) 'src/http.c'; else $(CYGPATH_W) '$(srcdir)/src/http.c'; fi`
 
 src/onedrive-operator.o: src/operator.c
-#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-operator.o -MD -MP -MF src/$(DEPDIR)/onedrive-operator.Tpo -c -o src/onedrive-operator.o `test -f 'src/operator.c' || echo '$(srcdir)/'`src/operator.c
-#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-operator.Tpo src/$(DEPDIR)/onedrive-operator.Po
-	$(AM_V_CC)source='src/operator.c' object='src/onedrive-operator.o' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-operator.o `test -f 'src/operator.c' || echo '$(srcdir)/'`src/operator.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-operator.o -MD -MP -MF src/$(DEPDIR)/onedrive-operator.Tpo -c -o src/onedrive-operator.o `test -f 'src/operator.c' || echo '$(srcdir)/'`src/operator.c
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-operator.Tpo src/$(DEPDIR)/onedrive-operator.Po
+#	$(AM_V_CC)source='src/operator.c' object='src/onedrive-operator.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-operator.o `test -f 'src/operator.c' || echo '$(srcdir)/'`src/operator.c
 
 src/onedrive-operator.obj: src/operator.c
-#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-operator.obj -MD -MP -MF src/$(DEPDIR)/onedrive-operator.Tpo -c -o src/onedrive-operator.obj `if test -f 'src/operator.c'; then $(CYGPATH_W) 'src/operator.c'; else $(CYGPATH_W) '$(srcdir)/src/operator.c'; fi`
-#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-operator.Tpo src/$(DEPDIR)/onedrive-operator.Po
-	$(AM_V_CC)source='src/operator.c' object='src/onedrive-operator.obj' libtool=no \
-	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-operator.obj `if test -f 'src/operator.c'; then $(CYGPATH_W) 'src/operator.c'; else $(CYGPATH_W) '$(srcdir)/src/operator.c'; fi`
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/onedrive-operator.obj -MD -MP -MF src/$(DEPDIR)/onedrive-operator.Tpo -c -o src/onedrive-operator.obj `if test -f 'src/operator.c'; then $(CYGPATH_W) 'src/operator.c'; else $(CYGPATH_W) '$(srcdir)/src/operator.c'; fi`
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/onedrive-operator.Tpo src/$(DEPDIR)/onedrive-operator.Po
+#	$(AM_V_CC)source='src/operator.c' object='src/onedrive-operator.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(onedrive_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/onedrive-operator.obj `if test -f 'src/operator.c'; then $(CYGPATH_W) 'src/operator.c'; else $(CYGPATH_W) '$(srcdir)/src/operator.c'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

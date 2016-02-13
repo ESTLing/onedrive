@@ -1,0 +1,5 @@
+AUTOMAKE_OPTIONS=foreign subdir-objects
+bin_PROGRAMS=onedrive
+onedrive_SOURCES=src/main.c src/filedata.h src/filedata.c src/http.h src/http.c src/operator.h src/operator.c
+onedrive_CPPFLAGS=-I src/
+onedrive_LDADD=-lssl -lcrypto -lsqlite3

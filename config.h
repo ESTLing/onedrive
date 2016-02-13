@@ -74,6 +74,9 @@
 /* Define to 1 if the system has the type `_Bool'. */
 #define HAVE__BOOL 1
 
+/* Name of package */
+#define PACKAGE "onedrive"
+
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "est.ling@qq.com"
 
@@ -94,6 +97,9 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
+
+/* Version number of package */
+#define VERSION "1.0"
 
 /* Define to rpl_malloc if the replacement function should be used. */
 /* #undef malloc */

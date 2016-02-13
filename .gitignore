@@ -9,8 +9,8 @@ client
 OneDrive REST API
 
 stamp-h1
-makefile.am
 onedrive
+aclocal.m4
 
 *.deps/
 *.dirstamp
