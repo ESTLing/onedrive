@@ -11,8 +11,9 @@ Linux下简单的OneDrive客户端，运行在命令行下。
 ## Install
 
 ```bash
+./configure
 make
-make clean
+make install
 ```
 
 Now we have database support, so [sqlite3](http://www.sqlite.org/) is required.
